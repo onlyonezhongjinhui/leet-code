@@ -1,6 +1,7 @@
 package io.zjh.question;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  * 两数和
@@ -40,9 +41,9 @@ import java.util.Arrays;
  *
  * @author onlyonezhongjinhui
  */
-public class TwoSum {
+public class StandardTwoSum {
     public static void main(String[] args) {
-        Solution solution = new Solution();
+        TwoSum.Solution solution = new TwoSum.Solution();
         int[] nums = new int[]{3, 3};
         int target = 6;
         int[] result = solution.twoSum(nums, target);
@@ -51,13 +52,14 @@ public class TwoSum {
 
     static class Solution {
         public int[] twoSum(int[] nums, int target) {
-            for (int i = 0; i < nums.length - 1; i++) {
+            HashMap<Integer, Integer> map = new HashMap<>(nums.length);
+            for (int i = 0; i < nums.length; i++) {
                 int n = nums[i];
-                for (int j = i + 1; j < nums.length; j++) {
-                    int m = nums[j];
-                    if (n + m == target) {
-                        return new int[]{i, j};
-                    }
+                int t = target - n;
+                if (!map.containsKey(t)) {
+                    map.put(n, i);
+                } else {
+                    return new int[]{i, map.get(t)};
                 }
             }
             throw new IllegalArgumentException();
