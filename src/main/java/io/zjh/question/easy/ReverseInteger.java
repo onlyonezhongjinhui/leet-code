@@ -1,4 +1,4 @@
-package io.zjh.question;
+package io.zjh.question.easy;
 
 /**
  * 7. 整数反转
@@ -37,7 +37,7 @@ package io.zjh.question;
  *
  * @author onlyonezhongjinhui
  */
-public class IntegerReverse {
+public class ReverseInteger {
     public static void main(String[] args) {
         System.out.println(new Solution().reverse(-123));
     }

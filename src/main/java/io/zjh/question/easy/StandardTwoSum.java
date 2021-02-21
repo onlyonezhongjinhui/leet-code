@@ -1,4 +1,4 @@
-package io.zjh.question;
+package io.zjh.question.easy;
 
 import java.util.Arrays;
 import java.util.HashMap;
