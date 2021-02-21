@@ -1,5 +1,7 @@
 package io.zjh.question.medium;
 
+import java.util.TreeMap;
+
 /**
  * 1438. 绝对差不超过限制的最长连续子数组
  * 给你一个整数数组 nums ，和一个表示限制的整数 limit，请你返回最长连续子数组的长度，该子数组中的任意两个元素之间的绝对差必须小于或者等于 limit 。
@@ -43,47 +45,29 @@ package io.zjh.question.medium;
  *
  * @author onlyonezhongjinhui
  */
-@Deprecated
-public class LongestSubarray {
+public class StandardLongestSubarray {
     public static void main(String[] args) {
-        int[] nums = new int[]{1, 1, 1, 1, 1, 1, 1};
-        int limit = 10;
+        int[] nums = new int[]{4, 2, 2, 2, 4, 4, 2, 2};
+        int limit = 0;
         System.out.println(new Solution().longestSubarray(nums, limit));
     }
 
     static class Solution {
-        // 此方法时间复杂度度为O(n^2),会超时，不可取
         public int longestSubarray(int[] nums, int limit) {
+            TreeMap<Integer, Integer> map = new TreeMap<>();
+            int left = 0, right = 0;
             int result = 0;
-
-            if (nums.length == 1) {
-                return 1;
-            }
-
-            for (int i = 0; i < nums.length - 1; i++) {
-                int n1 = nums[i];
-                int min = n1;
-                int max = n1;
-                int longest = 1;
-                for (int j = i + 1; j < nums.length; j++) {
-                    int n2 = nums[j];
-                    if (n2 > max) {
-                        max = n2;
+            while (right < nums.length) {
+                map.put(nums[right], map.getOrDefault(nums[right], 0) + 1);
+                while (map.lastKey() - map.firstKey() > limit) {
+                    map.put(nums[left], map.get(nums[left]) - 1);
+                    if (map.get(nums[left]) == 0) {
+                        map.remove(nums[left]);
                     }
-
-                    if (n2 < min) {
-                        min = n2;
-                    }
-
-                    if (max - min > limit) {
-                        break;
-                    }
-
-                    longest++;
+                    left++;
                 }
-                if (longest > result) {
-                    result = longest;
-                }
+                result = Math.max(result, right - left + 1);
+                right++;
             }
             return result;
         }
