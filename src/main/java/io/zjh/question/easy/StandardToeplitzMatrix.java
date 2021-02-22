@@ -1,5 +1,6 @@
 package io.zjh.question.easy;
 
+
 /**
  * 766. 托普利茨矩阵
  * 给你一个 m x n 的矩阵 matrix 。如果这个矩阵是托普利茨矩阵，返回 true ；否则，返回 false 。
@@ -41,7 +42,7 @@ package io.zjh.question.easy;
  *
  * @author onlyonezhongjinhui
  */
-public class ToeplitzMatrix {
+public class StandardToeplitzMatrix {
     public static void main(String[] args) {
         int[][] matrix = new int[][]{
                 {1, 2, 3, 4},
@@ -54,33 +55,23 @@ public class ToeplitzMatrix {
                 {36, 59, 71, 15, 26, 82, 87},
                 {56, 36, 59, 71, 15, 26, 82},
                 {15, 0, 36, 59, 71, 15, 26}};
-        int[][] matrix3 = new int[][]{
-                {1, 2, 3},
-                {2, 1}};
         int[][] matrix4 = new int[][]{
                 {11, 74, 0, 93},
                 {40, 11, 74, 7}};
         System.out.println(new Solution().isToeplitzMatrix(matrix));
         System.out.println(new Solution().isToeplitzMatrix(matrix1));
         System.out.println(new Solution().isToeplitzMatrix(matrix2));
-        System.out.println(new Solution().isToeplitzMatrix(matrix3));
         System.out.println(new Solution().isToeplitzMatrix(matrix4));
     }
 
     static class Solution {
+        // 只要两两比较即可
         public boolean isToeplitzMatrix(int[][] matrix) {
-            for (int k = 0; k < matrix.length - 1; k++) {
-                int[] ints = matrix[k];
-                for (int i = 0; i < ints.length - 1; i++) {
-                    int n = ints[i];
-                    for (int j = 1; j <= matrix.length - 1 - k; j++) {
-                        if (matrix[k + j].length <= j + i) {
-                            continue;
-                        }
-                        int m = matrix[k + j][j + i];
-                        if (n != m) {
-                            return false;
-                        }
+            int m = matrix.length, n = matrix[0].length;
+            for (int i = 0; i < m - 1; i++) {
+                for (int j = 0; j < n - 1; j++) {
+                    if (matrix[i][j] != matrix[i + 1][j + 1]) {
+                        return false;
                     }
                 }
             }
