@@ -55,7 +55,7 @@ public class StandardGrumpyBookstoreOwner {
                     total += customers[i];
                 }
             }
-
+            // 巧妙利用乘法,0乘以任何数都是0,滑动窗口增加的数量就是窗口内原本为grumpy为1的数量
             int increase = 0;
             for (int i = 0; i < X; i++) {
                 increase += customers[i] * grumpy[i];
